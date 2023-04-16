@@ -48,6 +48,7 @@ newPassport(vanja);
 console.log(vanja);
 
 // Higher-order functions (accept callback functions) 
+// Creating abstraction
 
 const oneWord = function(str) { 
   return str.replaceAll(' ', '').toLowerCase();
@@ -69,3 +70,12 @@ transformer('Javascript is the best', upperFirstWord);
 console.log('-----------------------')
 transformer('Javascript is the best', oneWord);
 
+const calculate = function(num1, num2) { 
+  console.log(num1 * num2 / 2)
+};
+
+const total = function(num1, num2, fn) { 
+  fn(num1, num2)
+}
+
+total(500, 200, calculate)
