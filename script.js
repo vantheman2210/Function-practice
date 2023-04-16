@@ -47,3 +47,25 @@ newPassport(vanja);
 // checkIn(flight, vanja);
 console.log(vanja);
 
+// Higher-order functions (accept callback functions) 
+
+const oneWord = function(str) { 
+  return str.replaceAll(' ', '').toLowerCase();
+};
+
+const upperFirstWord = function(str) { 
+  const [first, ...otherWords] = str.split(' ');
+  return [first.toUpperCase(), ...otherWords].join(' ');
+}
+
+// Higher order function
+const transformer = function(str, fn) { 
+  console.log(`Original string: ${str}`)
+  console.log(`Transformed string: ${fn(str)}`)
+
+  console.log(`Transformed by: ${fn.name}`)
+};
+transformer('Javascript is the best', upperFirstWord);
+console.log('-----------------------')
+transformer('Javascript is the best', oneWord);
+
