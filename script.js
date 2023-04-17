@@ -136,5 +136,21 @@ console.log(lufthansa);
 // Does not receive arguments, it receives array of arguments
 // Call method is used in modern Javascript
 const flightData = [583, 'Jason Mitt'];
-book.apply(eurowings, flightData);
+book.apply(eurowings, flightData)
 book.call(eurowings, ...flightData);
+
+// Bind method
+console.log('---------BIND Method-----------');
+// Bind does not immediately call a function, it created a new function where this keyword is bound
+const bookEw = book.bind(eurowings);
+const bookLh= book.bind(lufthansa);
+
+bookEw(23, 'Steven Pressfield');
+
+// One argument already predefined
+const bookEW23 = book.bind(eurowings, 23);
+bookEW23('Jay Jay');
+bookEW23('Cooper');
+
+//
+
