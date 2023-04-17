@@ -178,3 +178,20 @@ const calculateTax = (rate) => (value) => value + value * rate;
 console.log(calculateTax(0.23)(100));
 const croatiaVAT = calculateTax(0.25);
 console.log(croatiaVAT(100));
+
+// Immediately Invoked Function Expressions
+console.log('------Immediately Invoked Function Expressions-------');
+
+// This function can actually be called multiple times inside a code
+const runOnce = function() { 
+  console.log('This will never run again');
+};
+runOnce();
+
+// But these one cannot
+// IIFE expression
+(function () { 
+  console.log('This will never run again')
+})();
+
+(() => console.log('This will ALSO never run again')());
