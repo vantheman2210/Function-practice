@@ -174,6 +174,7 @@ console.log(addVAT(500));
     return value + value * rate;
   }
 };*/
+
 const calculateTax = (rate) => (value) => value + value * rate;
 console.log(calculateTax(0.23)(100));
 const croatiaVAT = calculateTax(0.25);
@@ -183,17 +184,71 @@ console.log(croatiaVAT(100));
 console.log('------Immediately Invoked Function Expressions-------');
 
 // This function can actually be called multiple times inside a code
-const runOnce = function() { 
-  console.log('This will never run again');
+const runOnce = function() {
+	console.log('This will never run again');
 };
 runOnce();
 
 // But these one cannot
 // IIFE expression
-(function () { 
-  console.log('This will never run again')
+(function() {
+	console.log('This will never run again');
 })();
 
 (() => console.log('This will ALSO never run again'))();
 
 // Closures
+console.log('-------Closures-------');
+const secureBooking = function() {
+	let passengerCount = 0;
+
+	return function() {
+		passengerCount++;
+		console.log(`${passengerCount} passengers`);
+	};
+};
+
+const booker = secureBooking();
+booker();
+booker();
+booker();
+console.dir(booker);
+
+//Example 1
+let f;
+const g = function() {
+	const a = 23;
+	f = function() {
+		console.log(a * 2);
+	};
+};
+
+const h = function() {
+	const b = 777;
+	f = function() {
+		console.log(b * 2);
+	};
+};
+
+g();
+f();
+console.dir(f);
+// Re-assigning f function
+h();
+f();
+console.dir(f);
+
+// Example 2
+const boardPassengers = function(n, wait) {
+	const perGroup = n / 3;
+
+	setTimeout(function() {
+    console.log(`We are now boarding all ${n} passengers`);
+    console.log(`There are 3 groups, each with ${perGroup} passengers`)
+  },wait*1000);
+
+	console.log(`Will start boarding in ${wait} seconds`);
+};
+// Closure has priority over scope
+const perGroup = 1000;
+boardPassengers(180, 3)
