@@ -80,6 +80,7 @@ const total = function(num1, num2, fn) {
 
 total(500, 200, calculate);
 
+// Functions that return functions
 console.log('------Functions that returns new functions');
 
 const greet = function(greeting) {
@@ -97,3 +98,43 @@ const arrowGreet = (greeting) => (name) => {
 	console.log(`${greeting}, ${name}`);
 };
 arrowGreet('Hi')('Vanja');
+
+// Call and Apply methods
+console.log('--------Call and Apply methods----------');
+const lufthansa = {
+  airline: 'Lufthansa',
+  iataCode: 'LH',
+  bookings: [],
+  book(flightNum, name) { 
+    console.log(`${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`);
+    this.bookings.push({flight: `${this.iataCode}${flightNum}`, name})
+  }
+}
+
+lufthansa.book(239, 'Vanja');
+lufthansa.book(635, 'John Wick');
+console.log(lufthansa)
+
+const eurowings = {
+  airline: 'Eurowings',
+  iataCode: 'EW',
+  bookings: [],
+  
+};
+
+// Call method
+const book = lufthansa.book;
+// Does not work
+// book(23, 'Elliot Jay');
+book.call(eurowings, 23, 'Jake Paul');
+console.log(eurowings);
+
+book.call(lufthansa, 239, 'Keanu Reeves');
+console.log(lufthansa);
+
+// Apply method
+// Does not receive arguments, it receives array of arguments
+// Call method is used in modern Javascript
+const flightData = [583, 'Jason Mitt'];
+book.apply(eurowings, flightData);
+book.call(eurowings, ...flightData);
