@@ -102,24 +102,23 @@ arrowGreet('Hi')('Vanja');
 // Call and Apply methods
 console.log('--------Call and Apply methods----------');
 const lufthansa = {
-  airline: 'Lufthansa',
-  iataCode: 'LH',
-  bookings: [],
-  book(flightNum, name) { 
-    console.log(`${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`);
-    this.bookings.push({flight: `${this.iataCode}${flightNum}`, name})
-  }
-}
+	airline: 'Lufthansa',
+	iataCode: 'LH',
+	bookings: [],
+	book(flightNum, name) {
+		console.log(`${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`);
+		this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
+	}
+};
 
 lufthansa.book(239, 'Vanja');
 lufthansa.book(635, 'John Wick');
-console.log(lufthansa)
+console.log(lufthansa);
 
 const eurowings = {
-  airline: 'Eurowings',
-  iataCode: 'EW',
-  bookings: [],
-  
+	airline: 'Eurowings',
+	iataCode: 'EW',
+	bookings: []
 };
 
 // Call method
@@ -135,15 +134,15 @@ console.log(lufthansa);
 // Apply method
 // Does not receive arguments, it receives array of arguments
 // Call method is used in modern Javascript
-const flightData = [583, 'Jason Mitt'];
-book.apply(eurowings, flightData)
+const flightData = [ 583, 'Jason Mitt' ];
+book.apply(eurowings, flightData);
 book.call(eurowings, ...flightData);
 
 // Bind method
 console.log('---------BIND Method-----------');
 // Bind does not immediately call a function, it created a new function where this keyword is bound
 const bookEw = book.bind(eurowings);
-const bookLh= book.bind(lufthansa);
+const bookLh = book.bind(lufthansa);
 
 bookEw(23, 'Steven Pressfield');
 
@@ -152,5 +151,30 @@ const bookEW23 = book.bind(eurowings, 23);
 bookEW23('Jay Jay');
 bookEW23('Cooper');
 
-//
+// Bind with event listeners
+lufthansa.planes = 300;
+lufthansa.buyPlane = function() {
+	console.log(this);
 
+	this.planes++;
+	console.log(this.planes);
+};
+
+document.querySelector('.buy').addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+
+// Partial application
+const addTax = (rate, value) => value + value * rate;
+console.log(addTax(0.1, 200));
+
+const addVAT = addTax.bind(null, 0.23);
+console.log(addVAT(500));
+
+/* const calculateTax = function(rate) { 
+  return function addTax(value) { 
+    return value + value * rate;
+  }
+};*/
+const calculateTax = (rate) => (value) => value + value * rate;
+console.log(calculateTax(0.23)(100));
+const croatiaVAT = calculateTax(0.25);
+console.log(croatiaVAT(100));
